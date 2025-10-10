@@ -14,15 +14,19 @@ import { AdBanner } from "../../components/AdBanner";
 export default function ResultPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const score = searchParams.get("score"); // ← router.query.score の代わり
+  const score = searchParams.get("score");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (!score) return;
     const s = Number(score);
-    if (s <= 3) setMessage("あなたはのんびり屋タイプです！");
-    else if (s <= 6) setMessage("あなたは社交的タイプです！");
-    else setMessage("あなたはアクティブタイプです！");
+    if (s <= 9) {
+      setMessage("あなたは技術探求者タイプ！");
+    } else if (s <= 13) {
+      setMessage("あなたは協調型リーダータイプ！");
+    } else {
+      setMessage("あなたは多才なジェネラリストタイプ！");
+    }
   }, [score]);
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
@@ -37,17 +41,19 @@ export default function ResultPage() {
       </Typography>
 
       <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-        <TwitterShareButton url={shareUrl} title={`診断結果: ${message}`}>
+        <TwitterShareButton
+          url={shareUrl}
+          title={`エンジニアキャリア診断の結果は…\n\n${message}`}
+        >
           <TwitterIcon size={40} round />
         </TwitterShareButton>
 
         <FacebookShareButton url={shareUrl}>
-          {/* react-share v5 では quote は使えないので削除 */}
           <FacebookIcon size={40} round />
         </FacebookShareButton>
       </Box>
 
-      <Button variant="contained" onClick={() => router.push("/quiz")}>
+      <Button variant="contained" onClick={() => router.push("/features/quiz")}>
         もう一度診断
       </Button>
 

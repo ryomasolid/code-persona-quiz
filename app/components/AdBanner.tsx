@@ -2,13 +2,21 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-export const AdBanner = () => {
+export function AdBanner() {
+  const adLoaded = useRef(false);
+
   useEffect(() => {
+    // すでに広告が読み込まれている場合は何もしない
+    if (adLoaded.current) {
+      return;
+    }
+
     try {
       // @ts-expect-error: adsbygoogle は存在しない場合もある
       (window.adsbygoogle = window.adsbygoogle || []).push({});
+      adLoaded.current = true; // 広告読み込みフラグを立てる
     } catch (e) {
       console.error("Adsense error", e);
     }
@@ -31,4 +39,4 @@ export const AdBanner = () => {
       />
     </div>
   );
-};
+}
