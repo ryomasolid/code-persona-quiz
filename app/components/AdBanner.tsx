@@ -1,4 +1,3 @@
-// app/components/AdBanner.tsx
 "use client";
 
 import Script from "next/script";
@@ -27,7 +26,7 @@ export function AdBanner() {
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
-        data-ad-client="ca-pub-xxxxxxxxxxxxxxxx" // ← 自分のIDに変更
+        data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
         data-ad-slot="1234567890"
         data-ad-format="auto"
       />
